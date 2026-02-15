@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Message For You</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@300;400;600&display=swap');
+
+        :root {
+            --primary-rose: #ff4d6d;
+            --soft-gold: #d4af37;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(circle at center, #fffcfd 0%, #fce4ec 100%);
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            width: 100vw;
+            touch-action: none;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 30px 60px -12px rgba(255, 77, 109, 0.2);
+            border-radius: 2rem;
+            transition: all 0.5s ease;
+            width: 92%;
+            max-width: 500px;
+        }
+
+        .cursive {
+            font-family: 'Dancing Script', cursive;
+        }
+
+        /* The container where the interaction happens */
+        #interaction-zone {
+            position: relative;
+            height: 220px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: visible;
+            touch-action: none; 
+        }
+
+        #no-button {
+            position: absolute;
+            transition: all 0.07s cubic-bezier(0.2, 1, 0.3, 1);
+            white-space: nowrap;
+            will-change: transform, left, top;
+            touch-action: none;
+        }
+
+        #yes-button {
+            position: absolute;
+            white-space: nowrap;
+            transition: transform 0.2s ease;
+        }
+
+        .main-heart {
+            fill: var(--primary-rose);
+            filter: drop-shadow(0 0 15px rgba(255, 77, 109, 0.4));
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .sparkle-heart {
+            position: absolute;
+            color: var(--primary-rose);
+            pointer-events: none;
+            z-index: 50;
+            animation: floatUp 3s ease-out forwards;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(0); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translateY(-150px) scale(1.5); opacity: 0; }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .ring-svg {
+            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.4));
+        }
+
+        .diamond-sparkle {
+            animation: diamond-shine 2s infinite;
+        }
+
+        @keyframes diamond-shine {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.3); }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="main-container" class="glass-card p-6 sm:p-10 md:p-16 text-center relative overflow-hidden">
+        
+        <!-- Asking View -->
+        <div id="asking-view" class="fade-in">
+            <div class="mb-6 flex justify-center">
+                <svg width="70" height="70" viewBox="0 0 24 24" class="main-heart md:w-[90px] md:h-[90px]">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+            </div>
+
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-semibold text-gray-800 mb-3 px-2">Do you like me?</h1>
+            <p class="text-gray-400 mb-6 font-light tracking-[0.2em] uppercase text-[9px] md:text-xs">An honest request from my heart</p>
+
+            <div id="interaction-zone">
+                <!-- YES Button -->
+                <button id="yes-button" 
+                        class="bg-[#ff4d6d] hover:bg-[#ff758f] text-white font-semibold py-3 px-10 sm:py-4 sm:px-14 rounded-full shadow-xl transform transition active:scale-95 z-20">
+                    Yes
+                </button>
+
+                <!-- NO Button -->
+                <button id="no-button" 
+                        class="border-2 border-gray-200 bg-white/50 text-gray-400 font-semibold py-3 px-10 sm:py-4 sm:px-14 rounded-full z-10 cursor-default">
+                    No
+                </button>
+            </div>
+        </div>
+
+        <!-- Success View -->
+        <div id="success-view" class="hidden fade-in">
+            <div class="mb-6 flex justify-center relative">
+                <svg width="90" height="90" viewBox="0 0 24 24" class="ring-svg md:w-[110px] md:h-[110px]" fill="none" stroke="#d4af37" stroke-width="1.2">
+                    <path d="M12 2L9 5H15L12 2Z" fill="#e0f2fe" stroke="#0ea5e9" class="diamond-sparkle"/>
+                    <circle cx="12" cy="13" r="7" stroke="#d4af37" stroke-width="2"/>
+                    <line x1="12" y1="2" x2="12" y2="0" stroke="#0ea5e9" stroke-width="1"/>
+                    <line x1="16" y1="4" x2="18" y2="2" stroke="#0ea5e9" stroke-width="1"/>
+                    <line x1="8" y1="4" x2="6" y2="2" stroke="#0ea5e9" stroke-width="1"/>
+                </svg>
+            </div>
+            
+            <h1 class="cursive text-4xl sm:text-5xl md:text-6xl text-[#ff4d6d] mb-4">I knew it! ❤️</h1>
+            
+            <div class="space-y-4 text-gray-700 text-sm sm:text-lg leading-relaxed font-light px-2">
+                <p class="text-lg sm:text-2xl text-gray-800 font-semibold italic">
+                    "You have made the smartest decision of your life."
+                </p>
+                <p class="text-gray-600">
+                    I promise we will be absolutely wonderful together. Every chapter of our story will be written with endless love and shared joy.
+                </p>
+                <div class="pt-2">
+                    <p class="text-[#ff4d6d] font-bold tracking-widest uppercase text-[9px] sm:text-xs">
+                        Thank you for making me the happiest person today. ✨
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('no-button');
+        const yesBtn = document.getElementById('yes-button');
+        const askingView = document.getElementById('asking-view');
+        const successView = document.getElementById('success-view');
+        const interactionZone = document.getElementById('interaction-zone');
+
+        /**
+         * Logic to move the "No" button within the bounds of the interaction zone.
+         */
+        function moveNoButton() {
+            const zoneRect = interactionZone.getBoundingClientRect();
+            const btnRect = noBtn.getBoundingClientRect();
+
+            // Calculate max ranges with safety padding
+            const padding = 20;
+            const maxX = zoneRect.width - btnRect.width - padding;
+            const maxY = zoneRect.height - btnRect.height - padding;
+
+            // Generate random but safe coordinates
+            const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
+            const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
+
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+            noBtn.style.transform = 'translate(0, 0)'; // Reset initial centering transform
+        }
+
+        /**
+         * Proximity detection for Desktop
+         */
+        document.addEventListener('mousemove', (e) => {
+            if (askingView.classList.contains('hidden')) return;
+
+            const btnRect = noBtn.getBoundingClientRect();
+            const btnCenterX = btnRect.left + btnRect.width / 2;
+            const btnCenterY = btnRect.top + btnRect.height / 2;
+
+            const distance = Math.hypot(e.clientX - btnCenterX, e.clientY - btnCenterY);
+
+            // Proximity threshold
+            if (distance < 75) {
+                moveNoButton();
+            }
+        });
+
+        // Instant trigger on mouseover/hover
+        noBtn.addEventListener('mouseover', moveNoButton);
+
+        // Instant trigger on mobile touch - optimized for fast response
+        noBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault(); 
+            moveNoButton();
+        }, { passive: false });
+
+        /**
+         * Success Screen Transition
+         */
+        yesBtn.addEventListener('click', () => {
+            askingView.style.opacity = '0';
+            askingView.style.transform = 'scale(0.95)';
+            
+            setTimeout(() => {
+                askingView.classList.add('hidden');
+                successView.classList.remove('hidden');
+                startCelebration();
+            }, 400);
+        });
+
+        function startCelebration() {
+            const interval = setInterval(() => {
+                if (successView.classList.contains('hidden')) {
+                    clearInterval(interval);
+                    return;
+                }
+                createFloatingHeart();
+            }, 350);
+
+            setTimeout(() => clearInterval(interval), 7000);
+        }
+
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤️';
+            heart.className = 'sparkle-heart';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.top = '100vh';
+            heart.style.fontSize = (Math.random() * 12 + 15) + 'px';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 3000);
+        }
+
+        /**
+         * Setup initial position of buttons
+         * Centers both buttons side by side regardless of screen size
+         */
+        function initLayout() {
+            const zoneRect = interactionZone.getBoundingClientRect();
+            const yesRect = yesBtn.getBoundingClientRect();
+            const noRect = noBtn.getBoundingClientRect();
+            
+            const gap = window.innerWidth < 640 ? 15 : 30;
+            const totalWidth = yesRect.width + gap + noRect.width;
+            
+            const startX = (zoneRect.width - totalWidth) / 2;
+            const centerY = (zoneRect.height / 2);
+
+            // Position Yes button
+            yesBtn.style.left = startX + 'px';
+            yesBtn.style.top = (centerY - yesRect.height / 2) + 'px';
+
+            // Position No button
+            noBtn.style.left = (startX + yesRect.width + gap) + 'px';
+            noBtn.style.top = (centerY - noRect.height / 2) + 'px';
+        }
+
+        window.onload = initLayout;
+        window.onresize = initLayout;
+    </script>
+</body>
+</html>
