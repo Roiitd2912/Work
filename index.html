@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Message For You</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@300;400;600&display=swap');
+
+        :root {
+            --primary-rose: #ff4d6d;
+            --soft-gold: #d4af37;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(circle at center, #fffcfd 0%, #fce4ec 100%);
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 30px 60px -12px rgba(255, 77, 109, 0.2);
+            border-radius: 2.5rem;
+            transition: all 0.5s ease;
+        }
+
+        .cursive {
+            font-family: 'Dancing Script', cursive;
+        }
+
+        /* The container where the interaction happens */
+        #interaction-zone {
+            position: relative;
+            height: 200px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: visible;
+        }
+
+        #no-button {
+            position: absolute;
+            transition: all 0.1s cubic-bezier(0.2, 1, 0.3, 1);
+            white-space: nowrap;
+            will-change: transform, left, top;
+        }
+
+        .main-heart {
+            fill: var(--primary-rose);
+            filter: drop-shadow(0 0 15px rgba(255, 77, 109, 0.4));
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .sparkle-heart {
+            position: absolute;
+            color: var(--primary-rose);
+            pointer-events: none;
+            z-index: 50;
+            animation: floatUp 3s ease-out forwards;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) scale(0); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translateY(-150px) scale(1.5); opacity: 0; }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .ring-svg {
+            filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.4));
+        }
+
+        .diamond-sparkle {
+            animation: diamond-shine 2s infinite;
+        }
+
+        @keyframes diamond-shine {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.3); }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="main-container" class="glass-card p-10 md:p-16 w-full max-w-xl mx-4 text-center relative overflow-hidden">
+        
+        <!-- Asking View -->
+        <div id="asking-view" class="fade-in">
+            <div class="mb-8 flex justify-center">
+                <svg width="100" height="100" viewBox="0 0 24 24" class="main-heart">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+            </div>
+
+            <h1 class="text-3xl md:text-5xl font-semibold text-gray-800 mb-4">Do you like me?</h1>
+            <p class="text-gray-400 mb-10 font-light tracking-[0.2em] uppercase text-xs">An honest request from my heart</p>
+
+            <div id="interaction-zone">
+                <!-- YES Button -->
+                <button id="yes-button" 
+                        class="bg-[#ff4d6d] hover:bg-[#ff758f] text-white font-semibold py-4 px-14 rounded-full shadow-xl transform transition hover:scale-110 active:scale-95 z-20">
+                    Yes
+                </button>
+
+                <!-- NO Button -->
+                <button id="no-button" 
+                        class="border-2 border-gray-200 bg-white/50 text-gray-400 font-semibold py-4 px-14 rounded-full z-10 cursor-default">
+                    No
+                </button>
+            </div>
+        </div>
+
+        <!-- Success View -->
+        <div id="success-view" class="hidden fade-in">
+            <div class="mb-8 flex justify-center relative">
+                <!-- Elegant Ring Icon -->
+                <svg width="120" height="120" viewBox="0 0 24 24" class="ring-svg" fill="none" stroke="#d4af37" stroke-width="1.2">
+                    <!-- Diamond -->
+                    <path d="M12 2L9 5H15L12 2Z" fill="#e0f2fe" stroke="#0ea5e9" class="diamond-sparkle"/>
+                    <!-- Ring Body -->
+                    <circle cx="12" cy="13" r="7" stroke="#d4af37" stroke-width="2"/>
+                    <!-- Shine Marks -->
+                    <line x1="12" y1="2" x2="12" y2="0" stroke="#0ea5e9" stroke-width="1"/>
+                    <line x1="16" y1="4" x2="18" y2="2" stroke="#0ea5e9" stroke-width="1"/>
+                    <line x1="8" y1="4" x2="6" y2="2" stroke="#0ea5e9" stroke-width="1"/>
+                </svg>
+            </div>
+            
+            <h1 class="cursive text-5xl md:text-7xl text-[#ff4d6d] mb-8">I knew it! ❤️</h1>
+            
+            <div class="space-y-6 text-gray-700 text-lg leading-relaxed font-light px-4">
+                <p class="text-2xl text-gray-800 font-semibold italic">
+                    "You have made the smartest decision of your life."
+                </p>
+                <p class="text-gray-600">
+                    I promise we will be absolutely wonderful together. Every chapter of our story will be written with endless love, deep respect, and shared joy.
+                </p>
+                <div class="pt-4">
+                    <p class="text-[#ff4d6d] font-bold tracking-widest uppercase text-sm">
+                        Thank you for making me the happiest person today. ✨
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('no-button');
+        const yesBtn = document.getElementById('yes-button');
+        const askingView = document.getElementById('asking-view');
+        const successView = document.getElementById('success-view');
+        const interactionZone = document.getElementById('interaction-zone');
+
+        /**
+         * Logic to move the "No" button within the bounds of the interaction zone.
+         */
+        function moveNoButton() {
+            const zoneRect = interactionZone.getBoundingClientRect();
+            const btnRect = noBtn.getBoundingClientRect();
+
+            // Calculate max ranges (padding added to keep button strictly inside)
+            const padding = 10;
+            const maxX = zoneRect.width - btnRect.width - padding;
+            const maxY = zoneRect.height - btnRect.height - padding;
+
+            // Generate random but safe coordinates
+            const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
+            const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
+
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.top = randomY + 'px';
+        }
+
+        /**
+         * Proximity detection: If mouse/touch gets too close, move the button.
+         */
+        document.addEventListener('mousemove', (e) => {
+            if (askingView.classList.contains('hidden')) return;
+
+            const btnRect = noBtn.getBoundingClientRect();
+            const btnCenterX = btnRect.left + btnRect.width / 2;
+            const btnCenterY = btnRect.top + btnRect.height / 2;
+
+            const distance = Math.hypot(e.clientX - btnCenterX, e.clientY - btnCenterY);
+
+            // If cursor gets within 100px, the button "runs away" quickly
+            if (distance < 100) {
+                moveNoButton();
+            }
+        });
+
+        // Also trigger on direct hover and touch
+        noBtn.addEventListener('mouseover', moveNoButton);
+        noBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            moveNoButton();
+        });
+
+        /**
+         * Success Screen Transition
+         */
+        yesBtn.addEventListener('click', () => {
+            askingView.style.opacity = '0';
+            askingView.style.transform = 'scale(0.9)';
+            
+            setTimeout(() => {
+                askingView.classList.add('hidden');
+                successView.classList.remove('hidden');
+                startCelebration();
+            }, 400);
+        });
+
+        function startCelebration() {
+            const interval = setInterval(() => {
+                if (successView.classList.contains('hidden')) {
+                    clearInterval(interval);
+                    return;
+                }
+                createFloatingHeart();
+            }, 300);
+
+            // Stop after some time to keep it elegant
+            setTimeout(() => clearInterval(interval), 10000);
+        }
+
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.innerHTML = '❤️';
+            heart.className = 'sparkle-heart';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.top = '100vh';
+            heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 3000);
+        }
+
+        // Setup initial position of No button
+        window.onload = () => {
+            const zoneRect = interactionZone.getBoundingClientRect();
+            const yesRect = yesBtn.getBoundingClientRect();
+            
+            // Set No button to the right of Yes button initially
+            noBtn.style.left = (yesBtn.offsetLeft + yesBtn.offsetWidth + 40) + 'px';
+            noBtn.style.top = yesBtn.offsetTop + 'px';
+        };
+    </script>
+</body>
+</html>
